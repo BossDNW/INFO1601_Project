@@ -5,6 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery | Wheel Be There</title>
 <link rel="stylesheet" href="/css/gallery.css">
+
+<style>
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(213, 153, 198, 0.803);
+    }
+
+  .modal-content {
+      margin: 5% auto;
+      display: block;
+      max-width: 40%;
+    }
+
+  .modal-content img {
+      width: 100%;
+    }
+
+  .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+</style>
 </head>
 <body>
  
@@ -15,14 +50,17 @@
     </div>
     <nav>
         <a href="/index.html">Home</a>
-        <a href="#about">About</a>
+        <a href="about.html">About</a>
         <a href="#calendar">Calendar</a>
         <a href="#">Gallery</a>
+        <a href="contact.html">Contact Us</a>
     </nav>
   </header>
  
   <section class="gallery"> <!-- Will Edit Later-->
-    <img src="https://i.postimg.cc/jjjbY75V/2019carsandcoffee-mar2019101636-Maydhya-Maraj-1024x682.jpg" alt="Car 1">
+    <div class="gallery-item"></div>
+      <img src="https://i.postimg.cc/jjjbY75V/2019carsandcoffee-mar2019101636-Maydhya-Maraj-1024x682.jpg" alt="Car 1">
+    </div>
     <img src="https://i.postimg.cc/XJG6p6dQ/1-Kirby-Singh.jpg" alt="Car 2">
     <img src="https://i.postimg.cc/50hdzKm1/052454-Lyden-Thomas.jpg" alt="Car 3">
     <img src="https://i.postimg.cc/VLcPLT6W/085244-Gerrard-Wilson.jpg" alt="Car 4">
@@ -39,6 +77,45 @@
   <footer>
     <p>&copy; 2025 Wheel Be There. All rights reserved.</p>
   </footer>
+
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img id="modalImg" src="" alt="Zoomed project">
+    </div>
+  </div>
  
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Modal image zoom functionality
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.querySelector(".close");
+
+    document.querySelectorAll(".gallery-item img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
+    });
+
+    closeBtn.onclick = function () {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
