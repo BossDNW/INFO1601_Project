@@ -12,10 +12,11 @@ body {
     font-style: italic;
   }
 
-  nav {
+  header nav {
     padding: 1rem;
     background: #111;
-  }
+    margin: auto;
+}
 
   nav a {
     color: #fff;
@@ -53,3 +54,19 @@ body {
     margin-top: 2rem;
     border-top: 2px solid #ff0000;
   }
+  
+.logo-pic {
+    width: 7%;
+    height: 7%;
+    border-radius: 30%;
+    margin-left: 5;
+    object-fit: cover;
+}
+.banner{
+    margin: 0;
+    display: flex;
+}
+
+.banner h1 {
+    margin: auto;
+}
