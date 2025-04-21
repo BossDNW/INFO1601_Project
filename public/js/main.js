@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log("User is logged in:", user);
-            element.innerHTML = `<h2 style="padding-left:6em">Logged in: ${user.email}</h2>`;
+            element.innerHTML = `<h2 style="padding-left:6em">Logged in: ${user.email.split('@')[0]}</h2>`;
         } else {
             console.log("No user is logged in");
             window.location.href = "./login.html";
@@ -68,7 +68,7 @@ const intervalId = setInterval(imgHandler, 5000);
 
 export async function blogs(){
     try{
-        let response = await fetch('blog.json');
+        let response = await fetch('./js/blog.json');
         let result = await response.json();
         let spot = document.querySelector('updates');
         let html = '';
@@ -76,25 +76,26 @@ export async function blogs(){
         html += `
             <h2>News and Updates</h2><hr>
         `;
-        for (blog in result){
+        for (let blog in result){
             html += `
                 <section class="middle">
-                    <h1>${result.Topic}</h1><hr>
+                    <h1>${result[blog].Topic}</h1><hr>
                     <div style="display: flex;">
-                        <img src="${result.Image} class="middle-img">
+                        <img src="${result[blog].Image} class="middle-img">
                     <div>
-                            <h3>${result.Heading}</h3>
-                            <p>${result.Content}</p>
+                            <h3>${result[blog].Heading}</h3>
+                            <p>${result[blog].Content}</p>
                         </div>
                         
                     </div>
 
             
                 </section>
-            `
+            `;
         }
         
         spot.innerHTML = html;
+        
     }catch(e){
         console.log(e);
     }

@@ -2,12 +2,21 @@ import firebaseConfig from "./firebaseConfig.js"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
 const auth = getAuth(firebaseConfig.app)
-
+function isValidEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
 function getData(){
     let data = {
         "email": document.getElementById("email").value,
         "password": document.getElementById("password").value
     };
+    if (isValidEmail(data.email)){
+        data.email = null;
+    }else{
+        data.email = data.email + "@gmail.com";
+    }
+    
     if (!(data.email==null||data.password==null)){
         console.log("Data Retrieved");
     }else{
@@ -54,15 +63,15 @@ signup.addEventListener("click",function(event){
 function niceError(error_code){
     const errorMap = {
         // Common authentication errors
-        'auth/invalid-email': 'Please enter a valid email address',
+        'auth/invalid-email': 'Please enter a valid username',
         'auth/user-disabled': 'This account has been disabled. Please contact support.',
-        'auth/user-not-found': 'No account found with this email address',
+        'auth/user-not-found': 'No account found with this username',
         'auth/wrong-password': 'Incorrect password. Please try again.',
-        'auth/email-already-in-use': 'This email is already registered. Please use another email or login.',
-        'auth/operation-not-allowed': 'Email/password login is currently disabled',
+        'auth/email-already-in-use': 'This username is already registered. Please use another username or login.',
+        'auth/operation-not-allowed': 'username/password login is currently disabled',
         'auth/weak-password': 'Password should be at least 6 characters',
         'auth/too-many-requests': 'Too many login attempts. Please try again later or reset your password.',
-        'auth/account-exists-with-different-credential': 'An account already exists with this email',
+        'auth/account-exists-with-different-credential': 'An account already exists with this username',
         'auth/requires-recent-login': 'Please login again to perform this action',
         'auth/credential-already-in-use': 'This credential is already associated with another account',
         
