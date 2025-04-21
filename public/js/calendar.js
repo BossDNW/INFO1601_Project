@@ -21,7 +21,6 @@ import { getFirestore, doc, getDoc, getDocs, collection, addDoc} from "https://w
 
 const auth = getAuth(firebaseConfig.app);
 const db = getFirestore(firebaseConfig.app);
-console.log(db)
 
 // Initialize with auth check
 onAuthStateChanged(auth, (user) => {
@@ -42,7 +41,6 @@ submit.addEventListener("click", async function(event) {
         location: document.getElementById("location").value,
         date: document.getElementById("date").value
     };
-    console.log(document.getElementById("date").value)
 
     // Validate input
     if (!ev.title || !ev.about || !ev.image || !ev.location) {
@@ -77,13 +75,6 @@ document.getElementById('date-input').addEventListener('change', function(e) {
 
 // Display events for selected date
 async function showEventsForDate(dateStr) {
-    const col = collection(db, "events");
-    const events = await getDocs(col)
-    
-    events.forEach((event)=>{
-        console.log(event.data());
-    });
-    console.log(events)
     const eventsList = document.getElementById('events-list');
     const dateHeader = document.getElementById('selected-date-header');
     
@@ -96,6 +87,20 @@ async function showEventsForDate(dateStr) {
     const date = new Date(dateStr + 'T00:00:00');
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     dateHeader.textContent = date.toLocaleDateString('en-US', options);
+
+    const col = collection(db, events);
+    const events = await getDocs(col);
+    let html = '';
+
+    events.forEach((event) =>{
+        let id = event.id;
+        let data = event.data();
+        if (dateStr == data.date){
+            console.log("We did it")
+        }
+    });
+
+
     
     if (events[dateStr]) {
         eventsList.innerHTML = '';

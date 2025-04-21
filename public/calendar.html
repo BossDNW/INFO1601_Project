@@ -23,9 +23,9 @@
             </ul>
         </nav>
     </header>
-    <br><br>
-    <section class="event-adder">
-        <div style="margin-left: auto;margin-right: auto;">
+
+    <main class="calendar-container"> <!-- New container -->
+        <section class="event-adder">
             <h1>Create an Event</h1>
             <form id="create-form">
                 <div>
@@ -42,33 +42,31 @@
                     <input type="date" id="date" required>
     
                     <label for="image">Image URL:</label>
-                    <input type="text" id="image" required><br><br>
-
-                    <button id="new-ev" type="submit" style="margin-left: auto;margin-right: auto;"> Create Event</button>
+                    <input type="text" id="image" required>
+    
+                    <button id="new-ev" type="submit">Create Event</button>
                 </div>
             </form>
-        </div>    
-    </section>
-    <br><hr>
+        </section>
 
+        <section class="date-picker-container">
+            <h1>Event Date Picker</h1>
+            <div>
+                <label for="date-input">Select a date:</label>
+                <input type="date" id="date-input">
+            </div>
+            
+            <div id="events-display">
+                <h2 id="selected-date-header">Please select a date</h2>
+                <div id="events-list"></div>
+            </div>
+        </section>
+    </main>
 
-    <div class="date-picker-container">
-        <h1>Event Date Picker</h1>
-        <div>
-            <label for="date-input">Select a date:</label>
-            <input type="date" id="date-input">
-        </div>
-        
-        <div id="events-display">
-            <h2 id="selected-date-header">Please select a date</h2>
-            <div id="events-list"></div>
-        </div>
-    </div>
-    
-    <br><br><br><br><br><br>
     <footer>
-        <p style="margin: auto;">&copy; 2025 Wheel Be There. All rights reserved.</p>
+        <p>&copy; 2025 Wheel Be There. All rights reserved.</p>
     </footer>
-<script  type="module" src="./js/calendar.js"></script>
+    
+    <script type="module" src="./js/calendar.js"></script>
 </body>
 </html>
