@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link rel="stylesheet" href="./css/calendar.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/images/logo.jpg" alt="Wheel Be There Logo">
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br><br>
+    <section class="event-adder">
+        <div style="margin-left: auto;margin-right: auto;">
+            <h1>Create an Event</h1>
+            <form id="create-form">
+                <div>
+                    <label for="title">Event Title:</label>
+                    <input type="text" id="title" required>
+    
+                    <label for="about">Event Summary:</label>
+                    <input type="text" id="about" required>
+    
+                    <label for="location">Event Location:</label>
+                    <input type="text" id="location" required>
+
+                    <label for="date">Event Date:</label>
+                    <input type="date" id="date" required>
+    
+                    <label for="image">Image URL:</label>
+                    <input type="text" id="image" required><br><br>
+
+                    <button id="new-ev" type="submit" style="margin-left: auto;margin-right: auto;"> Create Event</button>
+                </div>
+            </form>
+        </div>    
+    </section>
+    <br><hr>
+
+
+    <div class="date-picker-container">
+        <h1>Event Date Picker</h1>
+        <div>
+            <label for="date-input">Select a date:</label>
+            <input type="date" id="date-input">
+        </div>
+        
+        <div id="events-display">
+            <h2 id="selected-date-header">Please select a date</h2>
+            <div id="events-list"></div>
+        </div>
+    </div>
+    
+    <br><br><br><br><br><br>
+    <footer>
+        <p style="margin: auto;">&copy; 2025 Wheel Be There. All rights reserved.</p>
+    </footer>
+<script  type="module" src="./js/calendar.js"></script>
+</body>
+</html>
