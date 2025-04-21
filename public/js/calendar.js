@@ -1,6 +1,6 @@
 import firebaseConfig from "./firebaseConfig.js"
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, getDocs, collection, addDoc} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"
+import { getFirestore, doc, getDoc, getDocs, collection, addDoc, deleteDoc} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"
 
  const events = {
     '2025-04-22': [
@@ -39,7 +39,8 @@ submit.addEventListener("click", async function(event) {
         about: document.getElementById("about").value,
         image: document.getElementById("image").value,
         location: document.getElementById("location").value,
-        date: document.getElementById("date").value
+        date: document.getElementById("date").value,
+        userId: auth.currentUser.uid
     };
 
     // Validate input
@@ -98,6 +99,7 @@ async function showEventsForDate(dateStr) {
         let data = event.data();
         if (dateStr == data.date){
             found = true;
+            const showDeleteButton = auth.currentUser && auth.currentUser.uid === data.userId
             html += `
                 <div class="event-item" style="background-image: url('${data.image}');">
                     <div class="content-overlay">
@@ -106,7 +108,11 @@ async function showEventsForDate(dateStr) {
                             <p>${data.about}</p>
                             <p>Location: ${data.location}</p>
                             <p>Date: ${data.date}</p>
-                            <button id="${id}">Delete</button>
+                `;
+                if (showDeleteButton){
+                    html += `<button id="${id}" class="delete-btn" data-event-id="${id}">Delete</button>`;
+                }
+                html += `
                         </div>
                     </div>
                 </div>
@@ -119,10 +125,33 @@ async function showEventsForDate(dateStr) {
     eventsList.innerHTML = html;
 }
 
-// Set default date to today (optional)
+// Add this near the top of your module
+export function setupDeleteHandlers() {
+    document.addEventListener('click', async (event) => {
+        if (event.target.classList.contains('delete-btn')) {
+            const eventId = event.target.dataset.eventId;
+            try {
+                await deleteEvent(eventId);
+                event.target.closest('.event-item').remove();
+            } catch (error) {
+                console.error("Delete failed:", error);
+                alert("Failed to delete event: " + error.message);
+            }
+        }
+    });
+}
+
+// Your delete function (make sure it's exported if needed elsewhere)
+async function deleteEvent(eventId) {
+    const db = getFirestore();
+    await deleteDoc(doc(db, "events", eventId));
+}
+
 window.onload = function() {
     const today = new Date();
     const dateStr = today.toISOString().split('T')[0];
     document.getElementById('date-input').value = dateStr;
     showEventsForDate(dateStr);
 };
+
+document.addEventListener('DOMContentLoaded', setupDeleteHandlers);

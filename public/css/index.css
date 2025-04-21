@@ -74,14 +74,18 @@ header {
   .card {
       position: relative;
       z-index: 0;
-      width: 100%;
+      width: 600px;
       max-width: 600px;
       height: 300px; 
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      background-size: cover;
-      background-position: center;
+    }
+
+    .card img{
+      width: 600px;
+      max-width: 600px;
+      height: 300px; 
     }
     
     .card-content {
@@ -89,7 +93,6 @@ header {
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px;
       background: rgba(0,0,0,0.8);
       color: white;
     }
