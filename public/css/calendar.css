@@ -63,11 +63,12 @@ header {
       flex-direction: column;
   }
   footer {
-      margin-bottom: 0;
-      margin-top: auto;
-      background-color: #E04626;
-      padding: 1em;
-  }
+    background-color: #aa0100;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+}
 
   .calendar-container {
     display: flex;
@@ -164,16 +165,20 @@ header {
 }
 
 .event-item {
-    padding: 10px;
     margin-bottom: 10px;
     background: white;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .event-item h3 {
-    margin-top: 0;
-    color: #4285f4;
+    margin: 0;
+    padding: 1em;
+    color: #c9fe03;
+    background-color: rgba(115, 115, 115, 0.3);
 }
 
 .no-events {
@@ -186,3 +191,20 @@ label {
     display: block;
     margin-bottom: 8px;
 }
+
+.content-overlay {
+    /* Creates a semi-transparent dark layer */
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    /* Applies blur effect to the background */
+    backdrop-filter: blur(8px);
+    
+    /* Fallback for browsers that don't support backdrop-filter */
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* Ensures content stays above the background */
+    position: relative;
+    z-index: 1;
+    
+  }

@@ -23,11 +23,9 @@ const login = document.getElementById("login-submit");
 login.addEventListener("click",function(event){
     event.preventDefault();
     form_data = getData();
-    console.log(form_data)
     signInWithEmailAndPassword(auth, form_data.email, form_data.password)
     .then((userCredential) => {
         const user = userCredential.user;
-        alert((auth.currentUser).email)
         window.location.href = "./index.html"
     })
     .catch((error) => {

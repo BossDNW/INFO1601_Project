@@ -63,11 +63,12 @@ header {
       flex-direction: column;
   }
   footer {
-      margin-bottom: 0;
-      margin-top: auto;
-      background-color: #E04626;
-      padding: 1em;
-  }
+    background-color: #aa0100;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+}
   
   
   .card {

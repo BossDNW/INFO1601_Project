@@ -88,35 +88,35 @@ async function showEventsForDate(dateStr) {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     dateHeader.textContent = date.toLocaleDateString('en-US', options);
 
-    const col = collection(db, events);
+    const col = collection(db, "events");
     const events = await getDocs(col);
     let html = '';
+    let found = false;
 
     events.forEach((event) =>{
         let id = event.id;
         let data = event.data();
         if (dateStr == data.date){
-            console.log("We did it")
+            found = true;
+            html += `
+                <div class="event-item" style="background-image: url('${data.image}');">
+                    <div class="content-overlay">
+                    <h3>${data.title}</h3>
+                        <div style="padding:1em;color:white;">
+                            <p>${data.about}</p>
+                            <p>Location: ${data.location}</p>
+                            <p>Date: ${data.date}</p>
+                            <button id="${id}">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
     });
-
-
-    
-    if (events[dateStr]) {
-        eventsList.innerHTML = '';
-        events[dateStr].forEach(event => {
-            const eventItem = document.createElement('div');
-            eventItem.className = 'event-item';
-            eventItem.innerHTML = `
-                <h3>${event.title}</h3>
-                <p><strong>Time:</strong> ${event.time}</p>
-                <p>${event.description}</p>
-            `;
-            eventsList.appendChild(eventItem);
-        });
-    } else {
-        eventsList.innerHTML = '<p class="no-events">No events scheduled for this date</p>';
+    if (!found){
+        html += '<p class="no-events">No events scheduled for this date</p>'
     }
+    eventsList.innerHTML = html;
 }
 
 // Set default date to today (optional)
